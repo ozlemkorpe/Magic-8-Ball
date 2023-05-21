@@ -6,25 +6,50 @@
 //
 
 import UIKit
+import CoreMotion
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var answerLabel: UILabel!
     
-    let answers = ["It is certain", "It is decidedly so", "Without a doubt", "Yes, definitely", "You may rely on it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy, try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Don't count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful"]
+    let answers = ["It is certain", "It is decidedly so", "Without a doubt", "Yes, definitely", "You may rely on it", "As I see it, yes", "Most likely", "Hell yes", "Yes", "Signs point to yes", "Not sure, try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Don't count on it", "My reply is no", "No way", "Does not look so good", "Very doubtful"]
+    
+    let motionManager = CMMotionManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if motionManager.isAccelerometerAvailable {
+            motionManager.accelerometerUpdateInterval = 0.2
+            
+            motionManager.startAccelerometerUpdates(to: OperationQueue.main) { [weak self] (data, error) in
+                if let accelerometerData = data {
+                    self?.handleShakeDetection(with: accelerometerData)
+                }
+            }
+        }
     }
-    
+    //Stop accelerometer update
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        motionManager.stopAccelerometerUpdates()
+    }
+    // Random answer generator
     func generateRandomAnswer() -> String {
         let randomIndex = Int.random(in: 0..<answers.count)
         return answers[randomIndex]
     }
-    
-    @IBAction func shakeButtonTapped(_ sender: UIButton) {
-        let randomAnswer = generateRandomAnswer()
-        answerLabel.text = randomAnswer
+    // Check device shake action
+    func handleShakeDetection(with accelerometerData: CMAccelerometerData) {
+        let acceleration = accelerometerData.acceleration
+        let totalAcceleration = sqrt(pow(acceleration.x, 2) + pow(acceleration.y, 2) + pow(acceleration.z, 2))
+        let shakeThreshold: Double = 2.0
+        // Check if the total acceleration is over the treshold
+        if totalAcceleration >= shakeThreshold {
+            // Randomize the answer
+            let randomAnswer = generateRandomAnswer()
+            answerLabel.text = randomAnswer
+        }
     }
 }
-
