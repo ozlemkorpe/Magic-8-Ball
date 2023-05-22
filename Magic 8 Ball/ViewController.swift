@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var answerLabel: UILabel!
     @IBOutlet weak var ballImageView: UIImageView!
     
-    let answers = ["It is certain", "It is decidedly so", "Without a doubt", "Yes, definitely", "You may rely on it", "As I see it, yes", "Most likely", "Hell yes", "Yes", "Signs point to yes", "Not sure, try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Don't count on it", "My reply is no", "No way", "Does not look so good", "Very doubtful"]
+    let answers = ["It is certain", "It is decidedly so", "Without a doubt", "Yes, definitely", "You may rely on it", "As I see it, yes", "Most likely", "Hell yes", "Yes", "Signs point to yes", "Not sure, try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Don't count on it", "My reply is no", "It needs time", "I don't have an answer for this", "No way", "Does not look so good", "Very doubtful"]
     
     let motionManager = CMMotionManager()
     
