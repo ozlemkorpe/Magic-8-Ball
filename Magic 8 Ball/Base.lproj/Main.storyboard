@@ -33,6 +33,7 @@
                     </view>
                     <connections>
                         <outlet property="answerLabel" destination="tCM-GS-rPX" id="QAi-Td-6tj"/>
+                        <outlet property="ballImageView" destination="GwX-bv-KHm" id="ewd-FL-hLG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
